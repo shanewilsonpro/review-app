@@ -3,7 +3,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { BsFillSunFill } from "react-icons/bs";
 import { useTheme } from "../../hooks";
 
-export default function Header({ onAddMovieClick, onAddActorClick }) {
+export default function Header({ onAddActorClick, onAddMovieClick }) {
   const [showOptions, setShowOptions] = useState(false);
   const { toggleTheme } = useTheme();
 
@@ -69,6 +69,11 @@ const CreateOptions = ({ options, visible, onClose }) => {
     };
   }, [visible]);
 
+  const handleClick = (fn) => {
+    fn();
+    onClose();
+  };
+
   if (!visible) return null;
 
   return (
@@ -82,7 +87,11 @@ const CreateOptions = ({ options, visible, onClose }) => {
       }}
     >
       {options.map(({ title, onClick }) => {
-        return <Option onClick={onClick}>{title}</Option>;
+        return (
+          <Option key={title} onClick={() => handleClick(onClick)}>
+            {title}
+          </Option>
+        );
       })}
     </div>
   );
@@ -98,3 +107,4 @@ const Option = ({ children, onClick }) => {
     </button>
   );
 };
+
