@@ -2,7 +2,7 @@ const { check, validationResult } = require("express-validator");
 const { isValidObjectId } = require("mongoose");
 const genres = require("../utils/genres");
 
-exports.userValidator = [
+exports.userValidtor = [
   check("name").trim().not().isEmpty().withMessage("Name is missing!"),
   check("email").normalizeEmail().isEmail().withMessage("Email is invalid!"),
   check("password")
@@ -93,6 +93,7 @@ exports.validateMovie = [
 
       return true;
     }),
+
   // check("poster").custom((_, { req }) => {
   //   if (!req.file) throw Error("Poster file is missing!");
 
@@ -120,9 +121,13 @@ exports.validateTrailer = check("trailer")
     }
   });
 
+exports.validateRatings = check(
+  "rating",
+  "Rating must be a number between 0 and 10."
+).isFloat({ min: 0, max: 10 });
+
 exports.validate = (req, res, next) => {
   const error = validationResult(req).array();
-
   if (error.length) {
     return res.json({ error: error[0].msg });
   }
