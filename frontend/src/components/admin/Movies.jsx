@@ -6,8 +6,8 @@ import {
   updateMovie,
 } from "../../api/movie";
 import { useMovies, useNotification } from "../../hooks";
-import ConfirmModal from "../models/ConfirmModal";
-import UpdateMovie from "../models/UpdateMovie";
+import ConfirmModal from "../modals/ConfirmModal";
+import UpdateMovie from "../modals/UpdateMovie";
 import MovieListItem from "../MovieListItem";
 import NextAndPrevButton from "../NextAndPrevButton";
 
