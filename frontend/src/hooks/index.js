@@ -9,4 +9,4 @@ export const useTheme = () => useContext(ThemeContext);
 export const useNotification = () => useContext(NotificationContext);
 export const useAuth = () => useContext(AuthContext);
 export const useSearch = () => useContext(SearchContext);
-export const useMovie = () => useContext(MovieContext);
+export const useMovies = () => useContext(MovieContext);
