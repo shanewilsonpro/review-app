@@ -16,6 +16,20 @@ export const createActor = async (formData) => {
   }
 };
 
+export const searchActor = async (query) => {
+  const token = getToken();
+  try {
+    const { data } = await client(`/actor/search?name=${query}`, {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    });
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+
 export const updateActor = async (id, formData) => {
   const token = getToken();
   try {
@@ -45,20 +59,6 @@ export const deleteActor = async (id) => {
   }
 };
 
-export const searchActor = async (query) => {
-  const token = getToken();
-  try {
-    const { data } = await client(`/actor/search?name=${query}`, {
-      headers: {
-        authorization: "Bearer " + token,
-      },
-    });
-    return data;
-  } catch (error) {
-    return catchError(error);
-  }
-};
-
 export const getActors = async (pageNo, limit) => {
   const token = getToken();
   try {
@@ -71,6 +71,15 @@ export const getActors = async (pageNo, limit) => {
         },
       }
     );
+    return data;
+  } catch (error) {
+    return catchError(error);
+  }
+};
+
+export const getActorProfile = async (id) => {
+  try {
+    const { data } = await client(`/actor/single/${id}`);
     return data;
   } catch (error) {
     return catchError(error);

@@ -389,6 +389,7 @@ exports.getLatestUploads = async (req, res) => {
       title: m.title,
       storyLine: m.storyLine,
       poster: m.poster?.url,
+      responsivePosters: m.poster.responsive,
       trailer: m.trailer?.url,
     };
   });
@@ -487,6 +488,7 @@ exports.getRelatedMovies = async (req, res) => {
       id: m._id,
       title: m.title,
       poster: m.poster,
+      responsivePosters: m.responsivePosters,
       reviews: { ...reviews },
     };
   };
