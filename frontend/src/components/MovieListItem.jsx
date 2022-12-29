@@ -39,6 +39,7 @@ const MovieListItem = ({ movie, afterDelete, afterUpdate }) => {
 
   const displayConfirmModal = () => setShowConfirmModal(true);
   const hideConfirmModal = () => setShowConfirmModal(false);
+  const hideUpdateMovieModal = () => setShowUpdateModal(false);
 
   return (
     <>
@@ -60,6 +61,7 @@ const MovieListItem = ({ movie, afterDelete, afterUpdate }) => {
           movieId={selectedMovieId}
           visible={showUpdateModal}
           onSuccess={handleOnUpdate}
+          onClose={hideUpdateMovieModal}
         />
       </div>
     </>

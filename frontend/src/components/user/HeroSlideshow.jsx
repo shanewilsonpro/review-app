@@ -7,6 +7,9 @@ import { useNotification } from "../../hooks";
 let count = 0;
 let intervalId;
 
+let newTime = 0;
+let lastTime = 0;
+
 export default function HeroSlideshow() {
   const [currentSlide, setCurrentSlide] = useState({});
   const [clonedSlide, setClonedSlide] = useState({});
@@ -27,7 +30,12 @@ export default function HeroSlideshow() {
   };
 
   const startSlideShow = () => {
-    intervalId = setInterval(handleOnNextClick, 3500);
+    intervalId = setInterval(() => {
+      newTime = Date.now();
+      const delta = newTime - lastTime;
+      if (delta < 4000) return clearInterval(intervalId);
+      handleOnNextClick();
+    }, 3500);
   };
 
   const pauseSlideShow = () => {
@@ -52,6 +60,7 @@ export default function HeroSlideshow() {
 
   //0,1,2,3,4
   const handleOnNextClick = () => {
+    lastTime = Date.now();
     pauseSlideShow();
     setClonedSlide(slides[count]);
     count = (count + 1) % slides.length;
@@ -117,7 +126,7 @@ export default function HeroSlideshow() {
   return (
     <div className="w-full flex">
       {/* Slide show section */}
-      <div className="w-4/5 aspect-video relative overflow-hidden">
+      <div className="md:w-4/5 w-full aspect-video relative overflow-hidden">
         {/* current slide */}
         <Slide
           ref={slideRef}
@@ -143,7 +152,7 @@ export default function HeroSlideshow() {
       </div>
 
       {/* Up Next Section */}
-      <div className="w-1/5 space-y-3 px-3">
+      <div className="w-1/5 md:block hidden space-y-3 px-3">
         <h1 className="font-semibold text-2xl text-primary dark:text-white">
           Up Next
         </h1>
